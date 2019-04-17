@@ -40,7 +40,7 @@ public class Renderer implements GLSurfaceView.Renderer
 	private float[] mMVPMatrix = new float[16];
 	
 	/** Store our model data in a float buffer. */
-	private final FloatBuffer mTriangle1Vertices;
+	private final FloatBuffer mVertices;
 
 	/** This will be used to pass in the transformation matrix. */
 	private int mMVPMatrixHandle;
@@ -82,7 +82,7 @@ public class Renderer implements GLSurfaceView.Renderer
 		// Define points for equilateral triangles.
 		
 		// This triangle is red, green, and blue.
-		final float[] triangle1VerticesData = {
+		final float[] mVerticesData = {
 				// X, Y, Z,
 				2,0,0,
 				1,0,0,
@@ -99,10 +99,10 @@ public class Renderer implements GLSurfaceView.Renderer
 
 		
 		// Initialize the buffers.
-		mTriangle1Vertices = ByteBuffer.allocateDirect(triangle1VerticesData.length * mBytesPerFloat)
+		mVertices = ByteBuffer.allocateDirect(mVerticesData.length * mBytesPerFloat)
         .order(ByteOrder.nativeOrder()).asFloatBuffer();
 
-		mTriangle1Vertices.put(triangle1VerticesData).position(0);
+		mVertices.put(mVerticesData).position(0);
 
 	}
 	
@@ -282,7 +282,7 @@ public class Renderer implements GLSurfaceView.Renderer
         // Draw the triangle facing straight on.
         Matrix.setIdentityM(mModelMatrix, 0);
         Matrix.rotateM(mModelMatrix, 0, angleInDegrees, 0.0f, 0.0f, 1.0f);
-		drawTriangleStrip(mTriangle1Vertices, 10);
+		drawTriangleStrip(mVertices, 10);
 
 	}	
 	
