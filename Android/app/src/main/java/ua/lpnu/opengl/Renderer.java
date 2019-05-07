@@ -80,9 +80,8 @@ public class Renderer implements GLSurfaceView.Renderer
 	public Renderer()
 	{	
 		// Define points for equilateral triangles.
-		
-		// This triangle is red, green, and blue.
-		final float[] mVerticesData = {
+
+		/*final float[] mVerticesData = {
 				// X, Y, Z,
 				2,0,0,
 				1,0,0,
@@ -94,10 +93,34 @@ public class Renderer implements GLSurfaceView.Renderer
 				0,-1,0,
 				2,0,0,
 				1,0,0
+		};*/
+		// This triangle is red, green, and blue.
+		final float[] mVerticesData = {
+				// X, Y, Z,
+				2,4,0,
+				0,4,0,
+				3,5,0,
+				0,5,0,
+				0,5,0,
+				-1,5,0,
+				0,5,0,
+				-1,0,0,
+				0,0,0,
+				0,1,0,
+				3,0,0,
+				3,1,0,
+				3,3,0,
+				2,1,0,
+				2,3,0,
+				2,2,0,
+				0,3,0,
+				1,3,0,
+				0,2,0,
+				2,2,0
 		};
 
 
-		
+
 		// Initialize the buffers.
 		mVertices = ByteBuffer.allocateDirect(mVerticesData.length * mBytesPerFloat)
         .order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -115,7 +138,7 @@ public class Renderer implements GLSurfaceView.Renderer
 		// Position the eye behind the origin.
 		final float eyeX = 0.0f;
 		final float eyeY = 0.0f;
-		final float eyeZ = 6.0f;
+		final float eyeZ = 9.5f;
 
 		// We are looking toward the distance
 		final float lookX = 0.0f;
@@ -282,7 +305,7 @@ public class Renderer implements GLSurfaceView.Renderer
         // Draw the triangle facing straight on.
         Matrix.setIdentityM(mModelMatrix, 0);
         Matrix.rotateM(mModelMatrix, 0, angleInDegrees, 0.0f, 0.0f, 1.0f);
-		drawTriangleStrip(mVertices, 10);
+		drawTriangleStrip(mVertices, 20);
 
 	}	
 	
@@ -292,13 +315,13 @@ public class Renderer implements GLSurfaceView.Renderer
 	 * @param aTriangleBuffer The buffer containing the vertex data.
 	 */
 	private void drawTriangleStrip(final FloatBuffer aTriangleBuffer, int num_vertices)
-	{		
+	{
 		// Pass in the position information
 		aTriangleBuffer.position(mPositionOffset);
         GLES20.glVertexAttribPointer(mPositionHandle, mPositionDataSize, GLES20.GL_FLOAT, false,
-        		mStrideBytes, aTriangleBuffer);        
-                
-        GLES20.glEnableVertexAttribArray(mPositionHandle);        
+        		mStrideBytes, aTriangleBuffer);
+
+        GLES20.glEnableVertexAttribArray(mPositionHandle);
 
 		// This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
         // (which currently contains model * view).
